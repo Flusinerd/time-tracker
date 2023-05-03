@@ -1,0 +1,142 @@
+{
+  "name": "time-tracker-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "time-tracker",
+  "sourceRoot": "apps/time-tracker-ui/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/time-tracker-ui",
+        "index": "apps/time-tracker-ui/src/index.html",
+        "main": "apps/time-tracker-ui/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/time-tracker-ui/tsconfig.app.json",
+        "assets": [
+          "apps/time-tracker-ui/src/favicon.ico",
+          "apps/time-tracker-ui/src/assets"
+        ],
+        "styles": ["apps/time-tracker-ui/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "time-tracker-ui:build:production"
+        },
+        "development": {
+          "browserTarget": "time-tracker-ui:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "time-tracker-ui:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/time-tracker-ui/**/*.ts",
+          "apps/time-tracker-ui/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/time-tracker-ui/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "time-tracker-ui:build"
+      }
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/time-tracker-ui/.storybook",
+        "browserTarget": "time-tracker-ui:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/time-tracker-ui",
+        "configDir": "apps/time-tracker-ui/.storybook",
+        "browserTarget": "time-tracker-ui:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "time-tracker-ui:build-storybook",
+        "staticFilePath": "dist/storybook/time-tracker-ui"
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "time-tracker-ui:build-storybook:ci"
+        }
+      }
+    }
+  }
+}

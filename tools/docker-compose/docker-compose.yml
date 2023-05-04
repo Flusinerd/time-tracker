@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  db:
+    image: kcollins/mssql:2019-latest
+    ports:
+      - "1433:1433"
+    volumes:
+      - db_data:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123!
+      - MSSQL_DATABASE=TimeTracker
+      - MSSQL_USER=timetracker
+      - MSSQL_PASSWORD=Password123!
+      - MSSQL_STARTUP_DELAY=20
+
+volumes:
+  db_data:
+    driver: local

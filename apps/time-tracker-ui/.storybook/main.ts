@@ -7,6 +7,7 @@ const config: StorybookConfig = {
     name: '@storybook/angular',
     options: {},
   },
+  previewBody: '<body class="mat-typography mat-app-background"></body>',
 };
 
 export default config;

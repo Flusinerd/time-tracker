@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String         @id @default(uuid()) @db.VarChar(36)
+  email           String         @unique @db.VarChar(255)
+  firstName       String         @db.VarChar(255)
+  lastName        String         @db.VarChar(255)
+  profile_picture String         @db.VarChar(255)
+  createdAt       DateTime       @default(now()) @db.DateTime
+  updatedAt       DateTime       @updatedAt @db.DateTime
+  deletedAt       DateTime?      @db.DateTime
+  RefreshToken    RefreshToken[]
+  TimeEntries     TimeEntry[]    @relation("TimeEntries")
+}
+
+model RefreshToken {
+  token     String    @id @db.VarChar(4000)
+  userId    String    @db.VarChar(36)
+  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime  @default(dbgenerated("SYSDATETIMEOFFSET()")) @db.DateTimeOffset
+  deletedAt DateTime? @db.DateTimeOffset
+
+  @@index([userId], name: "RefreshToken_userId_idx")
+}
+
+model TimeEntry {
+  id        String    @id @default(uuid()) @db.VarChar(36)
+  userId    String    @db.VarChar(36)
+  user      User      @relation("TimeEntries", fields: [userId], references: [id])
+  startTime DateTime  @db.DateTimeOffset
+  endTime   DateTime? @db.DateTimeOffset
+  duration  Int       @db.Int
+  createdAt DateTime  @default(dbgenerated("SYSDATETIMEOFFSET()")) @db.DateTimeOffset
+  updatedAt DateTime  @updatedAt @db.DateTimeOffset
+  projectId String?   @db.VarChar(36)
+  project   Project?  @relation("ProjectTimeEntries", fields: [projectId], references: [id])
+  taskId    String?   @db.VarChar(36)
+  task      Task?     @relation("TaskTimeEntries", fields: [taskId], references: [id])
+
+  @@index([userId], name: "TimeEntry_userId_idx")
+}
+
+model Project {
+  id        String      @id @default(uuid()) @db.VarChar(36)
+  name      String      @db.VarChar(255)
+  createdAt DateTime    @default(dbgenerated("SYSDATETIMEOFFSET()")) @db.DateTimeOffset
+  updatedAt DateTime    @updatedAt @db.DateTimeOffset
+  TimeEntry TimeEntry[] @relation("ProjectTimeEntries")
+}
+
+model Task {
+  id        String      @id @default(uuid()) @db.VarChar(36)
+  name      String      @db.VarChar(255)
+  createdAt DateTime    @default(dbgenerated("SYSDATETIMEOFFSET()")) @db.DateTimeOffset
+  updatedAt DateTime    @updatedAt @db.DateTimeOffset
+  TimeEntry TimeEntry[] @relation("TaskTimeEntries")
+}

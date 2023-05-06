@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="name"
+      placeholder="Super project"
+    />
+    <mat-error *ngIf="form.controls.name.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="flex gap-2 justify-end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!form.valid"
+      [mat-dialog-close]="form.getRawValue()"
+    >
+      Save
+    </button>
+  </div>
+</form>

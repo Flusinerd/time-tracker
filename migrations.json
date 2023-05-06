@@ -2,7 +2,7 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.1.0-beta.0",
+      "version": "16.1.0-beta.1",
       "requires": {
         "@angular/core": ">=15.0.0"
       },
@@ -13,18 +13,7 @@
     },
     {
       "cli": "nx",
-      "version": "16.1.0-beta.0",
-      "requires": {
-        "@angular/core": ">=16.0.0-rc.4"
-      },
-      "description": "Update the @angular/cli package version to ~16.0.0-rc.4.",
-      "factory": "./src/migrations/update-16-1-0/update-angular-cli",
-      "package": "@nx/angular",
-      "name": "update-angular-cli-version-16-0-0-rc-4"
-    },
-    {
-      "cli": "nx",
-      "version": "16.1.0-beta.0",
+      "version": "16.1.0-beta.1",
       "requires": {
         "@angular/core": ">=16.0.0-rc.4"
       },
@@ -35,7 +24,7 @@
     },
     {
       "cli": "nx",
-      "version": "16.1.0-beta.0",
+      "version": "16.1.0-beta.1",
       "requires": {
         "@angular/core": ">=16.0.0-rc.4"
       },
@@ -46,7 +35,7 @@
     },
     {
       "cli": "nx",
-      "version": "16.1.0-beta.0",
+      "version": "16.1.0-beta.1",
       "requires": {
         "@angular/core": ">=16.0.0-rc.4"
       },
@@ -56,18 +45,15 @@
       "name": "update-server-executor-config"
     },
     {
-      "version": "16.0.0",
-      "description": "As of Angular v16, the `moduleId` property of `@Component` is deprecated as it no longer has any effect.",
-      "factory": "./migrations/remove-module-id/bundle",
-      "package": "@angular/core",
-      "name": "migration-v16-remove-module-id"
-    },
-    {
-      "version": "16.0.0",
-      "description": "In Angular version 15.2, the guard and resolver interfaces (CanActivate, Resolve, etc) were deprecated. This migration removes imports and 'implements' clauses that contain them.",
-      "factory": "./migrations/guard-and-resolve-interfaces/bundle",
-      "package": "@angular/core",
-      "name": "migration-v16-guard-and-resolve-interfaces"
+      "cli": "nx",
+      "version": "16.1.0-beta.1",
+      "requires": {
+        "@angular/core": ">=16.0.0"
+      },
+      "description": "Update the @angular/cli package version to ~16.0.0.",
+      "factory": "./src/migrations/update-16-1-0/update-angular-cli",
+      "package": "@nx/angular",
+      "name": "update-angular-cli-version-16-0-0"
     }
   ]
 }
